@@ -2,649 +2,583 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-<title>AMAR ASSISTANT PRO - One File</title>
-<meta name="theme-color" content="#0a0a0a">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AMAR ASSISTANT - Gemini Style</title>
+<meta name="theme-color" content="#08080c">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AMAR ASSISTANT">
-<meta name="description" content="Amar Personal AI Assistant - Shudhu maliker command e kaj kore">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Hind Siliguri',sans-serif;-webkit-tap-highlight-color:transparent}
-:root{--bg:#f8f8f9;--card:#fff;--text:#0a0a0a;--muted:#6b7280;--line:rgba(0,0,0,.08);--blue:#0071e3;--green:#0a7a2e;--yellow:#FFD814}
-body{background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-body.dark{--bg:#0a0a0a;--card:#171717;--text:#fff;--muted:#aaa;--line:rgba(255,255,255,.12)}
-button{cursor:pointer;border:none;font-family:inherit;background:none;color:inherit}input,select{font-family:inherit;outline:none}video{width:100%;border-radius:14px;background:#000}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideDown{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(0,113,227,.35)}100%{box-shadow:0 0 0 22px rgba(0,113,227,0)}}
-@keyframes listening{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
-@keyframes wave{0%,100%{height:8px}50%{height:28px}}
+body{background:#08080c;color:#fff;min-height:100vh;display:flex;flex-direction:column}
+button{cursor:pointer;border:none;font-family:inherit;background:none;color:inherit}input{font-family:inherit;outline:none;color:#fff}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes orbPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(139,92,246,.45)}50%{transform:scale(1.05);box-shadow:0 0 0 18px rgba(139,92,246,0)}}
+@keyframes wave{0%,100%{height:8px}50%{height:30px}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.install-banner{background:linear-gradient(135deg,#0a0a0a,#1a1a2e);color:#fff;padding:12px 14px;display:none;align-items:center;gap:12px;position:sticky;top:0;z-index:100;animation:slideDown .4s both}
-.install-banner.show{display:flex}
-.install-icon{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,#0071e3,#00c853);display:grid;place-items:center;font-size:22px;font-weight:900;flex-shrink:0}
-.install-text{flex:1;min-width:0}.install-text b{font-size:14px;display:block}.install-text span{font-size:12px;opacity:.75;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.install-btn{background:var(--yellow);color:#111;padding:10px 16px;border-radius:100px;font-weight:800;font-size:13px;white-space:nowrap}
-.install-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:14px;flex-shrink:0}
-.installed-badge{background:var(--green);color:#fff;padding:5px 10px;border-radius:100px;font-size:11px;font-weight:700;display:none;align-items:center;gap:5px}
-.installed-badge.show{display:inline-flex}
-.topbar{background:#111;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;font-size:13px;gap:8px;flex-wrap:wrap}
-.topbar b{color:var(--yellow)}
-.topbar button{background:#222;color:#fff;padding:6px 12px;border-radius:100px;font-size:12px;font-weight:700}
-header{padding:14px;text-align:center}
-.logo{font-size:26px;font-weight:900;letter-spacing:-1px}.logo span{color:var(--blue)}
-.logo small{display:block;font-size:11px;letter-spacing:3px;color:var(--muted);font-weight:700;margin-top:2px}
-.main{flex:1;max-width:560px;width:100%;margin:auto;padding:0 16px 20px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px;margin:12px 0;animation:fadeUp .5s both}
-.card h3{font-size:15px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.card p{font-size:12px;color:var(--muted);margin:6px 0 10px;line-height:1.6}
-.btn{padding:11px 16px;border-radius:100px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
-.btn-black{background:#111;color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-ghost{background:var(--card);border:1px solid var(--line);color:var(--text)}.btn-yellow{background:var(--yellow);color:#111}.btn-green{background:var(--green);color:#fff}.btn-red{background:#e60023;color:#fff}.btn-full{width:100%}
-.orb-wrap{text-align:center;padding:16px 0 6px}
-.orb{width:148px;height:148px;border-radius:50%;background:linear-gradient(135deg,#0071e3,#00c853,#7c3aed);display:grid;place-items:center;margin:auto;cursor:pointer;box-shadow:0 20px 50px rgba(0,113,227,.3)}
-.orb:active{transform:scale(.96)}
-.orb.listening{animation:listening 1s infinite, pulseRing 1.5s infinite}
-.orb-inner{width:118px;height:118px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700;text-align:center;padding:10px;line-height:1.3}
-.wave{display:flex;gap:4px;align-items:center;justify-content:center;height:26px;margin-top:10px}
-.wave i{display:block;width:4px;background:var(--blue);border-radius:10px;height:8px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;position:sticky;top:0;z-index:90;background:rgba(8,8,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.1)}
+.logo{font-size:19px;font-weight:900}.logo span{background:linear-gradient(90deg,#3b82f6,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pill{font-size:11px;padding:6px 10px;border-radius:100px;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.4);color:#6ee7b7;font-weight:700;display:flex;gap:6px;align-items:center}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:#10b981;animation:blink 1s infinite}
+.main{max-width:580px;margin:auto;padding:14px;width:100%;flex:1;display:flex;flex-direction:column}
+.orb-wrap{text-align:center;padding:10px 0}
+.orb{width:140px;height:140px;border-radius:50%;background:conic-gradient(from 0deg,#3b82f6,#8b5cf6,#ec4899,#f59e0b,#10b981,#3b82f6);padding:5px;margin:auto;cursor:pointer;animation:orbPulse 2.5s infinite}
+.orb.listening{animation:none;transform:scale(1.08)}
+.orb-inner{width:100%;height:100%;border-radius:50%;background:#0a0a12;display:grid;place-items:center;text-align:center;font-size:13px;font-weight:700;line-height:1.35}
+.orb-inner small{font-size:11px;color:#a1a1aa;font-weight:400}
+.wave{display:flex;gap:4px;justify-content:center;align-items:center;height:28px;margin-top:10px}
+.wave i{display:block;width:4px;background:linear-gradient(#3b82f6,#8b5cf6);border-radius:10px;height:8px}
 .wave.active i{animation:wave .7s infinite}
 .wave.active i:nth-child(2){animation-delay:.1s}.wave.active i:nth-child(3){animation-delay:.2s}.wave.active i:nth-child(4){animation-delay:.3s}.wave.active i:nth-child(5){animation-delay:.4s}
-.status{font-size:14px;font-weight:700;margin-top:12px}
-.status small{display:block;color:var(--muted);font-weight:400;margin-top:4px}
-.status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ccc;margin-right:6px}
-.status .dot.on{background:var(--green);animation:blink 1s infinite}
+.status{font-size:14px;font-weight:700;margin-top:10px}.status small{display:block;color:#a1a1aa;font-weight:400;font-size:12px;margin-top:4px}
+.chat{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:14px;min-height:300px;max-height:420px;overflow:auto;margin:12px 0}
+.msg{margin-bottom:12px;animation:fadeUp .35s both;max-width:88%}
+.msg b{font-size:11px;color:#a1a1aa}
+.msg p{font-size:14px;line-height:1.65;margin-top:4px;padding:11px 13px;border-radius:16px;white-space:pre-wrap}
+.msg.user{margin-left:auto;text-align:right}.msg.user p{background:#fff;color:#000;border-bottom-right-radius:4px}
+.msg.ai p{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-bottom-left-radius:4px}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.quick button{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);padding:12px 8px;border-radius:14px;font-size:12px;font-weight:600;color:#fff}
+.quick button:active{transform:scale(.96)}
+.quick button small{display:block;color:#a1a1aa;font-weight:400;font-size:10px;margin-top:3px}
+.input-row{display:flex;gap:8px}
+.input-row input{flex:1;padding:14px 16px;border-radius:100px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:14px}
+.mic-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.mic-btn.listening{background:linear-gradient(135deg,#ef4444,#f97316)}
+.send-btn{width:52px;height:52px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-weight:800;flex-shrink:0}
+.memory-bar{background:rgba(250,204,21,.1);border:1px solid rgba(250,204,21,.3);border-radius:14px;padding:10px 12px;font-size:12px;margin-bottom:10px;line-height:1.6}
+.memory-bar b{color:#fde68a}
+.bg-badge{position:fixed;bottom:14px;right:14px;z-index:99;background:rgba(0,0,0,.85);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:8px 12px;font-size:11px;display:none;align-items:center;gap:7px}
+.bg-badge.show{display:flex}
 .voice-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.voice-row button{padding:8px 12px;border-radius:100px;border:1px solid var(--line);background:var(--bg);font-size:12px;font-weight:600}
-.voice-row button.active{background:#111;color:#fff}
-.range-row{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:13px}
-.range-row input{flex:1}
-.chat{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px;min-height:240px;max-height:360px;overflow:auto}
-.msg{margin-bottom:12px;animation:fadeUp .4s both;max-width:88%}
-.msg b{font-size:12px;color:var(--muted)}
-.msg p{font-size:14px;line-height:1.6;margin-top:4px;padding:11px 13px;border-radius:16px}
-.msg.user{margin-left:auto;text-align:right}.msg.user p{background:#111;color:#fff;border-bottom-right-radius:4px}
-.msg.ai p{background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:4px}
-.msg.system p{background:#FFF8E6;border:1px solid #FFE58A;color:#6b4d00}
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
-.quick button{background:var(--card);border:1px solid var(--line);padding:12px 10px;border-radius:14px;font-size:13px;font-weight:600;text-align:left}
-.quick button:active{transform:scale(.97)}
-.quick button small{display:block;color:var(--muted);font-weight:400;font-size:11px;margin-top:2px}
-.input-row{display:flex;gap:8px;margin-top:10px}
-.input-row input{flex:1;padding:13px 15px;border-radius:100px;border:1px solid var(--line);background:var(--card);color:var(--text);font-size:14px}
-.mic-btn{width:50px;height:50px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;flex-shrink:0;font-size:20px}
-.mic-btn.listening{background:#e60023;animation:pulseRing 1.2s infinite}
-.send-btn{width:50px;height:50px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;flex-shrink:0}
-.permission-box{background:#FFF8E6;border:1px solid #FFE58A;border-radius:16px;padding:13px;margin-top:12px;display:none}
-.permission-box.show{display:block;animation:fadeUp .3s both}
-.permission-box b{font-size:14px}
-.permission-box p{font-size:13px;color:#6b4d00;margin:6px 0 10px;line-height:1.5}
-.perm-btns{display:flex;gap:8px}.perm-btns button{flex:1;padding:11px;border-radius:100px;font-weight:700;font-size:14px}
-.perm-yes{background:#0a7a2e;color:#fff}.perm-no{background:#fff;border:1px solid var(--line)}
-.perm-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.perm-item{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px;font-size:12px}
-.perm-item b{display:block;font-size:13px;margin-bottom:3px}
-.perm-item span{color:var(--muted)}
-.perm-item .ok{color:var(--green);font-weight:700}.perm-item .no{color:#e60023;font-weight:700}
-.field{margin-bottom:11px}.field label{font-size:13px;font-weight:700;display:block;margin-bottom:6px}.field input,.field select{width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text)}
-.log{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:12px;font-size:12px;color:var(--muted);line-height:1.7;max-height:160px;overflow:auto}
-.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:100px;padding:4px;margin:12px 0}
-.tabs button{flex:1;padding:9px;border-radius:100px;font-size:12px;font-weight:700}
-.tabs button.active{background:#111;color:#fff}
-.tab{display:none}.tab.show{display:block;animation:fadeUp .4s both}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.gallery img{width:100%;height:80px;object-fit:cover;border-radius:12px}
-.gallery img.selected{outline:3px solid #e60023}
-.gesture-box{background:#111;color:#fff;border-radius:18px;padding:14px;text-align:center;margin-top:10px;min-height:160px;display:grid;place-items:center;touch-action:none;user-select:none}
-.gesture-box p{font-size:13px;opacity:.8}
-.gesture-box b{font-size:18px}
-canvas{width:100%;border-radius:14px;background:#000}
-@media(max-width:480px){.orb{width:132px;height:132px}.orb-inner{width:108px;height:108px}.quick{grid-template-columns:1fr 1fr}}
-@media(display-mode:standalone){.install-banner{display:none !important}}
+.voice-row button{padding:7px 11px;border-radius:100px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:11px;font-weight:600;color:#fff}
+.voice-row button.active{background:#fff;color:#000}
 </style>
 </head>
-<body id="body">
+<body>
 
-<div class="install-banner" id="installBanner">
-<div class="install-icon">A</div>
-<div class="install-text"><b>AMAR ASSISTANT PRO</b><span>App hisebe install koro - Offline eo cholbe</span></div>
-<button class="install-btn" onclick="installPWA()">Install</button>
-<button class="install-close" onclick="dismissInstall()">X</button>
-</div>
-
-<div class="topbar"><span><b>AMAR ASSISTANT PRO</b> - Shudhu Tomar Command e</span><span class="installed-badge" id="installedBadge">Installed - App Mode</span><button onclick="toggleTheme()">Theme</button></div>
-<header><div class="logo">AMAR <span>ASSISTANT</span><small>PRO - TOMAR JAIGAY - TOMAR ONUMOTITE</small></div></header>
+<div class="topbar"><div class="logo">AMAR <span id="assistantNameLogo">ASSISTANT</span></div><div class="pill"><span class="dot"></span><span id="bgText">Background: ON</span></div></div>
 
 <div class="main">
-
-<div class="tabs">
-<button class="active" onclick="showTab('home',this)">Home</button>
-<button onclick="showTab('permission',this)">Permission</button>
-<button onclick="showTab('control',this)">Control</button>
-<button onclick="showTab('files',this)">Files</button>
-</div>
-
-<!-- HOME TAB -->
-<div class="tab show" id="tab-home">
-<div class="card">
-<h3>App Install Koro <span id="pwaStatus" style="font-size:11px;background:#FFF8E6;padding:5px 9px;border-radius:100px;color:#6b4d00">Browser Mode</span></h3>
-<p>Home Screen e icon asbe, ek tap e khulbe, internet na thakleo khulbe. Play Store lagbe na.</p>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-yellow" style="flex:1" onclick="installPWA()">Install App</button><button class="btn btn-ghost" style="flex:1" onclick="showInstallHelp()">Kivabe Korbo?</button></div>
-<div style="display:flex;gap:14px;margin-top:10px;font-size:12px;color:var(--muted)"><span>Size: 1 MB er kom</span><span>Offline: Cholbe</span><span>Ads: Nai</span></div>
-</div>
-
 <div class="orb-wrap">
-<div class="orb" id="orb" onclick="toggleListen()"><div class="orb-inner" id="orbText">TAP KORE<br>BOLO</div></div>
+<div class="orb" id="orb" onclick="toggleListen()"><div class="orb-inner" id="orbText">TAP KORE<br>BOLO<small>Auto Listen</small></div></div>
 <div class="wave" id="wave"><i></i><i></i><i></i><i></i><i></i></div>
-<div class="status"><span class="dot" id="statusDot"></span><span id="statusText">Ami ready. Age Owner Verify koro.</span><small id="statusSub">Onno kew bolle ami kaj korbo na. Shudhu tumi bollei kaj korbo.</small></div>
+<div class="status"><span id="statusText">Ami ready, bolo ki korte hobe?</span><small id="statusSub">Jemon: YouTube kholo, Rahim ke WhatsApp koro, ekta smart watch dekhao</small></div>
 </div>
 
-<div class="card">
-<h3>Voice - 7 Ta Manusher Moto Voice</h3>
+<div class="memory-bar" id="memoryBar">Memory: <b id="memoryText">Ekhono kichu shikhai nai. Bolo "Amar nam Rahim" ar "Tomar nam Jarvis"</b></div>
+
 <div class="voice-row" id="voiceBtns">
-<button class="active" onclick="setVoiceMode('natural',this)">Natural</button>
-<button onclick="setVoiceMode('male',this)">Purush - Deep</button>
-<button onclick="setVoiceMode('female',this)">Mohila - Soft</button>
-<button onclick="setVoiceMode('bangla_male',this)">Bangla Purush</button>
-<button onclick="setVoiceMode('bangla_female',this)">Bangla Mohila</button>
-<button onclick="setVoiceMode('child',this)">Baccha</button>
-<button onclick="setVoiceMode('slow',this)">Aste Aste</button>
-</div>
-<div class="range-row"><span>Speed</span><input type="range" id="rateRange" min="0.7" max="1.3" step="0.1" value="1" oninput="updateVoiceSettings()"><span id="rateVal">1.0x</span></div>
-<div class="range-row"><span>Pitch</span><input type="range" id="pitchRange" min="0.7" max="1.5" step="0.1" value="1" oninput="updateVoiceSettings()"><span id="pitchVal">1.0</span></div>
-<div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-ghost" style="flex:1" onclick="testVoice()">Voice Test</button><button class="btn btn-black" style="flex:1" onclick="stopVoice()">Voice Thamaw</button></div>
+<button class="active" onclick="setVoice('natural',this)">Natural</button>
+<button onclick="setVoice('male',this)">Purush</button>
+<button onclick="setVoice('female',this)">Mohila</button>
+<button onclick="setVoice('bangla_male',this)">Bangla Purush</button>
+<button onclick="setVoice('bangla_female',this)">Bangla Mohila</button>
+<button onclick="setVoice('child',this)">Baccha</button>
 </div>
 
 <div class="chat" id="chatBox"></div>
-<div class="permission-box" id="permBox">
-<b id="permTitle">Onumoti Lagbe</b>
-<p id="permText">Ami ei kaj ta korbo?</p>
-<div class="perm-btns"><button class="perm-yes" onclick="confirmPerm(true)">Ha, Koro</button><button class="perm-no" onclick="confirmPerm(false)">Na, Batil Koro</button></div>
-</div>
 
 <div class="quick">
-<button onclick="quickCmd('YouTube kholo')">YouTube Kholo<small>Onumoti niye khulbe</small></button>
-<button onclick="quickCmd('Time koto')">Time Koto<small>Ekhon somoy bolbe</small></button>
-<button onclick="quickCmd('WhatsApp kholo')">WhatsApp Kholo<small>Out-App e khulbe</small></button>
-<button onclick="quickCmd('Camera kholo')">Camera Kholo<small>Permission popup asbe</small></button>
-<button onclick="quickCmd('Screenshot nao')">Screenshot Nao<small>Screen er chobi</small></button>
-<button onclick="quickCmd('Screen record chalu koro')">Screen Record<small>Record chalu</small></button>
+<button onclick="quick('YouTube kholo')">YouTube<small>Khule dibe</small></button>
+<button onclick="quick('Screenshot nao')">Screenshot<small>Niye nibe</small></button>
+<button onclick="quick('Amar unread message gulo poro')">Unread Msg<small>Pore shunabe</small></button>
+<button onclick="quick('WiFi chalu koro')">WiFi<small>Chalu / Bondho</small></button>
+<button onclick="quick('Silent mode bondho koro')">Silent Off<small>Normal korbe</small></button>
+<button onclick="quick('Ekta smart watch dekhao kom dame')">Watch Khujo<small>Trusted site e</small></button>
 </div>
 
 <div class="input-row">
-<input id="textInput" placeholder="Ekhane likhe bolo... Example: YouTube kholo" onkeypress="if(event.key==='Enter') sendText()">
+<input id="textInput" placeholder="Bolo... Jemon: Rahim ke WhatsApp e bolo ami astesi" onkeypress="if(event.key==='Enter') sendText()">
 <button class="mic-btn" id="micBtn" onclick="toggleListen()">Mic</button>
-<button class="send-btn" onclick="sendText()">Send</button>
+<button class="send-btn" onclick="sendText()">Go</button>
+</div>
+<p style="font-size:11px;color:#a1a1aa;text-align:center;margin-top:10px">Tip: 1 bar bolba "Amar nam Rahim" - erpor theke se tomake Rahim bole dakbe. 1 bar bolba "Tomar nam Jarvis" - erpor theke se Jarvis.</p>
 </div>
 
-<div class="card">
-<h3>Owner Settings</h3>
-<div class="field" style="margin-top:10px"><label>Tomar Nam (Malik)</label><input id="ownerName" value="Amar Malik"></div>
-<div class="field"><label>Tomar PIN (4 songkha)</label><input id="ownerPin" value="1234" maxlength="4"></div>
-<div class="field"><label>Assistant ke ki bole dakba?</label><input id="wakeWord" value="amar assistant"></div>
-<div style="display:flex;gap:8px"><button class="btn btn-black" style="flex:1" onclick="saveOwner()">Save Koro</button><button class="btn btn-ghost" style="flex:1" onclick="verifyOwner()">Verify Koro</button></div>
-</div>
-</div>
-
-<!-- PERMISSION TAB - INTERNAL PHONE PERMISSION POPUP -->
-<div class="tab" id="tab-permission">
-<div class="card">
-<h3>Phone Permission - Sob Ek Jaygay</h3>
-<p>Prottekta button e chap dile phone er asol permission popup asbe. Tumi Allow korlei kaj korbe, Deny korle kaj korbe na. Eta Android er niyom, browser diyei popup ase.</p>
-<div class="perm-grid">
-<div class="perm-item"><b>Microphone</b><span id="st-mic" class="no">Not Allowed</span><br><button class="btn btn-black" style="margin-top:8px;width:100%" onclick="askMicPermission()">Allow Mic</button></div>
-<div class="perm-item"><b>Camera</b><span id="st-camera" class="no">Not Allowed</span><br><button class="btn btn-black" style="margin-top:8px;width:100%" onclick="askCameraPermission()">Allow Camera</button></div>
-<div class="perm-item"><b>Location</b><span id="st-location" class="no">Not Allowed</span><br><button class="btn btn-black" style="margin-top:8px;width:100%" onclick="askLocationPermission()">Allow Location</button></div>
-<div class="perm-item"><b>Notification</b><span id="st-noti" class="no">Not Allowed</span><br><button class="btn btn-black" style="margin-top:8px;width:100%" onclick="askNotificationPermission()">Allow Noti</button></div>
-<div class="perm-item"><b>Storage / Files</b><span id="st-storage" class="no">Not Allowed</span><br><button class="btn btn-black" style="margin-top:8px;width:100%" onclick="askStoragePermission()">Allow Files</button></div>
-<div class="perm-item"><b>Screen Record</b><span id="st-screen" class="no">Not Allowed</span><br><button class="btn btn-black" style="margin-top:8px;width:100%" onclick="askScreenPermission()">Allow Screen</button></div>
-</div>
-<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn btn-yellow" style="flex:1" onclick="askAllPermissions()">Sob Permission Ekbare Chao</button><button class="btn btn-ghost" style="flex:1" onclick="checkAllPermissions()">Status Check Koro</button></div>
-<p style="margin-top:10px">Google Account: <span id="googleStatus" style="font-weight:700;color:#e60023">Not Connected</span></p>
-<div style="display:flex;gap:8px"><button class="btn btn-blue" style="flex:1" onclick="connectGoogle()">Google Account Connect</button><button class="btn btn-ghost" style="flex:1" onclick="disconnectGoogle()">Disconnect</button></div>
-</div>
-
-<div class="card">
-<h3>Camera Preview - Live</h3>
-<p>Camera permission dile ekhane live preview asbe. Screenshot nite parba.</p>
-<video id="cameraVideo" autoplay playsinline style="display:none"></video>
-<canvas id="cameraCanvas" style="display:none"></canvas>
-<img id="cameraShot" style="width:100%;border-radius:14px;display:none">
-<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn btn-black" style="flex:1" onclick="startCamera()">Camera Chalu</button><button class="btn btn-blue" style="flex:1" onclick="takeCameraPhoto()">Photo Tolo</button><button class="btn btn-ghost" style="flex:1" onclick="stopCamera()">Camera Bondho</button></div>
-</div>
-</div>
-
-<!-- CONTROL TAB - TOUCH / SCROLL / SWIPE -->
-<div class="tab" id="tab-control">
-<div class="card">
-<h3>Touch / Scroll / Swipe - Gemini er Moto</h3>
-<p>Ei box er vitore angul diye touch, scroll, swipe koro. Assistant o eivabe onno app e touch / scroll / swipe korbe. Eta test korar jonno.</p>
-<div class="gesture-box" id="gestureBox"><div><b id="gestureText">Ekhan e Touch / Swipe Koro</b><p id="gestureSub">Up - Down - Left - Right - Tap - Long Press sob detect hobe</p></div></div>
-<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn btn-black" style="flex:1" onclick="simulateTap()">Tap Simulate</button><button class="btn btn-blue" style="flex:1" onclick="simulateScroll()">Scroll Simulate</button><button class="btn btn-ghost" style="flex:1" onclick="simulateSwipe()">Swipe Simulate</button></div>
-</div>
-
-<div class="card">
-<h3>App Kholo - Out-App</h3>
-<p>Jekono app e chap dao, se onumoti niye khulbe. Play Store theke install o korte parbe.</p>
-<div class="quick" style="grid-template-columns:1fr 1fr 1fr">
-<button onclick="quickCmd('YouTube kholo')">YouTube</button>
-<button onclick="quickCmd('WhatsApp kholo')">WhatsApp</button>
-<button onclick="quickCmd('Facebook kholo')">Facebook</button>
-<button onclick="quickCmd('Gmail kholo')">Gmail</button>
-<button onclick="quickCmd('Maps kholo')">Maps</button>
-<button onclick="quickCmd('Play Store kholo')">Play Store</button>
-</div>
-<div class="field"><label>App er nam likhe kholo / install koro</label><input id="appNameInput" placeholder="Example: Instagram"></div>
-<div style="display:flex;gap:8px"><button class="btn btn-black" style="flex:1" onclick="openCustomApp()">App Kholo</button><button class="btn btn-yellow" style="flex:1" onclick="installCustomApp()">Play Store e Install Koro</button></div>
-</div>
-
-<div class="card">
-<h3>Phone Control - Settings + Power</h3>
-<p>Sob kajer age 2 bar onumoti chaibe. Phone bondho kora serious kaj, tai 2 bar confirm korte hobe.</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-<button class="btn btn-ghost" onclick="quickCmd('WiFi on koro')">WiFi On</button>
-<button class="btn btn-ghost" onclick="quickCmd('Brightness komao')">Brightness</button>
-<button class="btn btn-ghost" onclick="quickCmd('Silent koro')">Silent Mode</button>
-<button class="btn btn-ghost" onclick="quickCmd('Flashlight on koro')">Flashlight</button>
-<button class="btn btn-blue" onclick="quickCmd('Screenshot nao')">Screenshot</button>
-<button class="btn btn-blue" onclick="quickCmd('Screen record chalu koro')">Screen Record</button>
-</div>
-<div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-red" style="flex:1" onclick="quickCmd('Phone bondho koro')">Phone Bondho Koro</button><button class="btn btn-green" style="flex:1" onclick="quickCmd('Email pathao')">Email Pathao</button></div>
-</div>
-
-<div class="card">
-<h3>Message / Call / Email</h3>
-<div class="field"><label>Kake? Nam / Number / Email</label><input id="contactInput" placeholder="Rahim / 01700000000 / rahim@gmail.com"></div>
-<div class="field"><label>Ki likhba / bolba?</label><input id="messageInput" placeholder="Ami 10 minute e astesi"></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-black" style="flex:1" onclick="doCallFromInputs()">Call Koro</button><button class="btn btn-blue" style="flex:1" onclick="doSMSFromInputs()">SMS Koro</button><button class="btn btn-yellow" style="flex:1" onclick="doEmailFromInputs()">Email Koro</button></div>
-</div>
-</div>
-
-<!-- FILES TAB -->
-<div class="tab" id="tab-files">
-<div class="card">
-<h3>Files - Okejo File + Double Photo Delete</h3>
-<p>Storage permission dile ekhane tomar phone er file dekhabe. Okejo file ar double photo khuje ber korbe. Delete korar age sobsomoy onumoti chaibe.</p>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-black" style="flex:1" onclick="scanFiles()">File Scan Koro</button><button class="btn btn-blue" style="flex:1" onclick="scanDuplicatePhotos()">Double Photo Khujo</button><button class="btn btn-yellow" style="flex:1" onclick="scanJunk()">Okejo File Khujo</button></div>
-<div id="fileList" style="margin-top:10px;font-size:13px;color:var(--muted)">Ekhono scan kora hoy nai. Scan button e chap dao.</div>
-<div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-red" style="flex:1" onclick="deleteSelectedFiles()">Selected Delete Koro</button><button class="btn btn-ghost" style="flex:1" onclick="clearFileList()">List Clear Koro</button></div>
-</div>
-
-<div class="card">
-<h3>Photo Gallery - Double Photo Demo</h3>
-<p>Nicher chobi gulo theke double chobi select kore delete korte parba. Asol phone e tomar gallery er chobi asbe.</p>
-<div class="gallery" id="photoGallery"></div>
-<p id="photoStatus" style="margin-top:8px">Total: 6 ta photo, Double: 2 ta pawa geche</p>
-<button class="btn btn-red btn-full" style="margin-top:8px" onclick="deleteDuplicateDemo()">Double Photo Delete Koro</button>
-</div>
-
-<div class="card">
-<h3>Screenshot / Screen Record - Result</h3>
-<p>Screenshot nile ekhane dekhabe. Screen Record er jonno browser er Share Screen popup asbe.</p>
-<div id="screenshotResult" style="font-size:13px;color:var(--muted)">Ekhono screenshot neya hoy nai.</div>
-<video id="recordPreview" controls style="display:none;margin-top:10px"></video>
-<div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-black" style="flex:1" onclick="takeScreenshot()">Screenshot Nao</button><button class="btn btn-blue" style="flex:1" onclick="startScreenRecord()">Record Chalu</button><button class="btn btn-red" style="flex:1" onclick="stopScreenRecord()">Record Bondho</button></div>
-</div>
-</div>
-
-<div class="log" id="logBox"><b>Activity Log:</b><br>Assistant ekhono kono kaj kore nai.</div>
-<p style="font-size:11px;color:var(--muted);text-align:center;margin-top:12px">PWA: Install korle Home Screen e App icon asbe. App Mode e khulle Browser er address bar thakbe na.</p>
-</div>
+<div class="bg-badge" id="bgBadge"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block"></span> Background e suntesi - Mic ON</div>
 
 <script>
-// ========== PWA - 1 FILE E ==========
-let deferredPrompt = null;
-let isInstalled = false;
-function createManifest(){
-  let canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 512;
-  let ctx = canvas.getContext('2d'); let grad = ctx.createLinearGradient(0,0,512,512);
-  grad.addColorStop(0,'#0071e3'); grad.addColorStop(0.5,'#00c853'); grad.addColorStop(1,'#7c3aed');
-  ctx.fillStyle = grad; ctx.fillRect(0,0,512,512);
-  ctx.fillStyle = '#111'; ctx.beginPath(); ctx.arc(256,256,190,0,Math.PI*2); ctx.fill();
-  ctx.fillStyle = '#fff'; ctx.font = 'bold 180px Inter, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('A',256,270);
-  let iconDataUrl = canvas.toDataURL('image/png');
-  let manifest = {name:"AMAR ASSISTANT PRO", short_name:"AMAR ASSISTANT", description:"Shudhu maliker command e kaj kore", start_url: location.pathname + "?pwa=1", scope: location.pathname, display:"standalone", orientation:"portrait", background_color:"#0a0a0a", theme_color:"#0a0a0a", categories:["productivity","utilities"], icons:[{src:iconDataUrl,sizes:"192x192",type:"image/png",purpose:"any"},{src:iconDataUrl,sizes:"512x512",type:"image/png",purpose:"any"},{src:iconDataUrl,sizes:"512x512",type:"image/png",purpose:"maskable"}], shortcuts:[{name:"Voice diye Bolo",short_name:"Voice",url: location.pathname + "?action=voice",icons:[{src:iconDataUrl,sizes:"192x192",type:"image/png"}]}]};
-  let blob = new Blob([JSON.stringify(manifest)], {type:'application/json'}); let url = URL.createObjectURL(blob);
-  let link = document.createElement('link'); link.rel='manifest'; link.href=url; document.head.appendChild(link);
-  let appleIcon = document.createElement('link'); appleIcon.rel='apple-touch-icon'; appleIcon.href=iconDataUrl; document.head.appendChild(appleIcon);
-  return iconDataUrl;
-}
-function createServiceWorker(){
-  let swCode = `const CACHE='amar-assistant-v2'; self.addEventListener('install', e=>{ e.waitUntil(caches.open(CACHE).then(c=>c.addAll([location.pathname])).catch(()=>{})); self.skipWaiting(); }); self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); }); self.addEventListener('fetch', e=>{ e.respondWith(caches.match(e.request).then(res=>{ return res || fetch(e.request).then(net=>{ if(e.request.method==='GET' && e.request.url.startsWith(location.origin)){ let clone=net.clone(); caches.open(CACHE).then(c=>c.put(e.request, clone)); } return net; }).catch(()=>caches.match(location.pathname)); })); });`;
-  let blob = new Blob([swCode], {type:'text/javascript'}); let swUrl = URL.createObjectURL(blob);
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register(swUrl, {scope: location.pathname}).then(()=>{ addLog('PWA: Offline ready - Service Worker on'); }).catch(()=>{}); }
-}
-window.addEventListener('beforeinstallprompt', (e)=>{ e.preventDefault(); deferredPrompt=e; document.getElementById('installBanner').classList.add('show'); document.getElementById('pwaStatus').textContent='Install Ready'; document.getElementById('pwaStatus').style.background='#D1F4D9'; document.getElementById('pwaStatus').style.color='#0a7a2e'; addLog('PWA: Install prompt ready'); });
-window.addEventListener('appinstalled', ()=>{ isInstalled=true; deferredPrompt=null; document.getElementById('installBanner').classList.remove('show'); document.getElementById('installedBadge').classList.add('show'); addChat('system','App install hoye gelo! Ekhon Home Screen theke khulte parba, offline eo khulbe.'); speak('App install hoye gelo. Ekhon Home Screen theke khulte parba.'); addLog('PWA: App installed'); localStorage.setItem('aa_installed','1'); });
-function installPWA(){
-  playClick();
-  if(window.matchMedia('(display-mode: standalone)').matches || localStorage.getItem('aa_installed')==='1'){ addChat('ai','App ta agei install kora ache. Home Screen e AMAR ASSISTANT icon ta khujo.'); speak('App ta agei install kora ache.'); return; }
-  if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(choice=>{ if(choice.outcome==='accepted'){ addLog('PWA: User accepted install'); } else { addChat('ai','Install batil korla. Pore abar Install button e chap dilei hobe.'); } deferredPrompt=null; }); }
-  else { let isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent); if(isIOS){ addChat('ai','iPhone e: Niche Share button > Add to Home Screen e chap dao.'); speak('iPhone e Share button theke Add to Home Screen e chap dao.'); } else { addChat('ai','Chrome e: Upore 3 dot menu > Add to Home Screen / Install App e chap dao. GitHub Pages e host korle 100% kaj korbe.'); speak('Chrome er menu theke Add to Home Screen e chap dao.'); document.getElementById('installBanner').classList.add('show'); } }
-}
-function dismissInstall(){ document.getElementById('installBanner').classList.remove('show'); localStorage.setItem('aa_install_dismissed', Date.now()); }
-function showInstallHelp(){ playClick(); let isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent); if(isIOS){ addChat('ai','iPhone: Safari > Share > Add to Home Screen > Add'); } else { addChat('ai','Android Chrome: 1. Upore 3 dot menu kholo 2. Add to Home Screen / Install App chap dao 3. Install chap dao. Hoye gelo.'); } addChat('system','Tip: GitHub Pages e host korle Install 100% kaj korbe. File hisebe khulle Chrome prompt dey na.'); }
-
-// ========== TABS ==========
-function showTab(name, btn){ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('show')); document.getElementById('tab-'+name).classList.add('show'); document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); playClick(); }
-
-// ========== STATE ==========
-let ownerName = localStorage.getItem('aa_owner') || 'Amar Malik';
-let ownerPin = localStorage.getItem('aa_pin') || '1234';
-let wakeWord = (localStorage.getItem('aa_wake') || 'amar assistant').toLowerCase();
-let isVerified = false;
-let pendingAction = null;
-let voiceMode = 'natural';
-let rate = 1, pitch = 1;
-let recognition = null, isListening = false;
-let logs = [];
-let googleConnected = localStorage.getItem('aa_google')==='1';
-let cameraStream = null, micStream = null;
-let mediaRecorder = null, recordedChunks = [];
-document.getElementById('ownerName').value = ownerName;
-document.getElementById('ownerPin').value = ownerPin;
-document.getElementById('wakeWord').value = wakeWord;
-if(googleConnected) document.getElementById('googleStatus').textContent='Connected'; document.getElementById('googleStatus').style.color='#0a7a2e';
-
-// ========== VOICE - 7 TA MANUSHER MOTO ==========
+// ========== MEMORY - 1 BAR SHIKHAILEI MONE RAKHBE ==========
+let myName = localStorage.getItem('aa_my_name') || '';
+let assistantName = localStorage.getItem('aa_assistant_name') || 'Assistant';
+let voiceMode = localStorage.getItem('aa_voice') || 'natural';
+let recognition = null, isListening = false, autoListen = true;
 let voices = [];
+
+function updateMemoryBar(){
+  let t = '';
+  if(myName) t += 'Tumi: <b>' + myName + '</b> | ';
+  else t += 'Tomar nam jani na | ';
+  if(assistantName && assistantName !== 'Assistant') t += 'Ami: <b>' + assistantName + '</b>';
+  else t += 'Amar nam: Assistant';
+  document.getElementById('memoryText').innerHTML = t;
+  document.getElementById('assistantNameLogo').textContent = assistantName.toUpperCase();
+  // Voice button active
+  document.querySelectorAll('#voiceBtns button').forEach(b=>{
+    let map = {natural:'Natural', male:'Purush', female:'Mohila', bangla_male:'Bangla Purush', bangla_female:'Bangla Mohila', child:'Baccha'};
+    b.classList.toggle('active', map[voiceMode] === b.textContent);
+  });
+}
+updateMemoryBar();
+
+// ========== VOICE - MANUSHER MOTO ==========
 function loadVoices(){ voices = window.speechSynthesis.getVoices(); }
 window.speechSynthesis.onvoiceschanged = loadVoices; loadVoices();
 function getBestVoice(){
   if(!voices.length) voices = window.speechSynthesis.getVoices();
   let prefer = [v=>v.name.includes('Google US English') && v.lang==='en-US', v=>v.name.includes('Google') && v.lang.startsWith('en'), v=>v.lang==='en-US', v=>v.lang.startsWith('bn'), v=>v.lang.startsWith('en'), v=>v.default];
-  for(let fn of prefer){ let f=voices.find(fn); if(f) return f; } return voices[0];
+  for(let fn of prefer){ let f = voices.find(fn); if(f) return f; } return voices[0];
 }
-function speak(text, onEnd){
+function speak(text){
   window.speechSynthesis.cancel();
-  let u = new SpeechSynthesisUtterance(text); let v=getBestVoice(); if(v) u.voice=v; u.lang=v?v.lang:'en-US';
-  if(voiceMode==='natural'){ u.rate=0.98; u.pitch=1.0; }
-  if(voiceMode==='male'){ u.rate=0.92; u.pitch=0.7; }
-  if(voiceMode==='female'){ u.rate=1.02; u.pitch=1.3; }
-  if(voiceMode==='bangla_male'){ u.lang='bn-BD'; u.rate=0.95; u.pitch=0.8; }
-  if(voiceMode==='bangla_female'){ u.lang='bn-BD'; u.rate=1.0; u.pitch=1.25; }
-  if(voiceMode==='child'){ u.rate=1.1; u.pitch=1.5; }
-  if(voiceMode==='slow'){ u.rate=0.78; u.pitch=1.0; }
-  u.rate = u.rate * rate * 0.98; u.pitch = u.pitch * pitch; u.volume=1; u.onend=()=>{ if(onEnd) onEnd(); };
-  window.speechSynthesis.speak(u); setStatus('Boltese...', text); document.getElementById('wave').classList.add('active'); setTimeout(()=>document.getElementById('wave').classList.remove('active'), 1200);
+  let u = new SpeechSynthesisUtterance(text);
+  let v = getBestVoice(); if(v) u.voice = v; u.lang = v ? v.lang : 'en-US';
+  if(voiceMode==='natural'){ u.rate=.98; u.pitch=1 }
+  if(voiceMode==='male'){ u.rate=.92; u.pitch=.7 }
+  if(voiceMode==='female'){ u.rate=1.02; u.pitch=1.3 }
+  if(voiceMode==='bangla_male'){ u.lang='bn-BD'; u.rate=.95; u.pitch=.8 }
+  if(voiceMode==='bangla_female'){ u.lang='bn-BD'; u.rate=1; u.pitch=1.25 }
+  if(voiceMode==='child'){ u.rate=1.1; u.pitch=1.5 }
+  u.volume = 1;
+  window.speechSynthesis.speak(u);
+  setStatus('Boltese...', text);
+  document.getElementById('wave').classList.add('active');
+  setTimeout(()=>document.getElementById('wave').classList.remove('active'), 1200);
 }
-function stopVoice(){ window.speechSynthesis.cancel(); setStatus('Voice thamiye dilam',''); }
-function setVoiceMode(mode, btn){ voiceMode=mode; document.querySelectorAll('#voiceBtns button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); playClick(); speak(mode==='natural'?'Ami ekhon natural manusher moto kotha bolbo':mode==='male'?'Ami ekhon purush deep voice e kotha bolbo':mode==='female'?'Ami ekhon mohila soft voice e kotha bolbo':mode==='bangla_male'?'Ami ekhon Bangla purush voice e kotha bolbo':mode==='bangla_female'?'Ami ekhon Bangla mohila voice e kotha bolbo':mode==='child'?'Ami ekhon bacchar moto misti kore kotha bolbo':'Ami ekhon aste aste kotha bolbo'); }
-function updateVoiceSettings(){ rate=parseFloat(document.getElementById('rateRange').value); pitch=parseFloat(document.getElementById('pitchRange').value); document.getElementById('rateVal').textContent=rate.toFixed(1)+'x'; document.getElementById('pitchVal').textContent=pitch.toFixed(1); }
-function testVoice(){ playClick(); speak('Hello '+ownerName+'. Ami tomar personal assistant. Ami shudhu tomar command e kaj kori. Tumi ja bolba, ami tomar onumoti niye tai korbo. Eta amar sera manusher moto voice.'); }
-
-// ========== SOUND ==========
-let audioCtx=null;
-function playClick(){ try{ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); let o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.type='sine'; o.frequency.setValueAtTime(620,audioCtx.currentTime); o.frequency.exponentialRampToValueAtTime(880,audioCtx.currentTime+0.07); g.gain.setValueAtTime(0.05,audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001,audioCtx.currentTime+0.09); o.start(); o.stop(audioCtx.currentTime+0.1); }catch(e){} }
+function setVoice(mode, btn){
+  voiceMode = mode; localStorage.setItem('aa_voice', mode);
+  document.querySelectorAll('#voiceBtns button').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  speak(mode==='natural' ? 'Ami ekhon natural voice e kotha bolbo' : mode==='male' ? 'Ami ekhon purush voice e kotha bolbo' : mode==='female' ? 'Ami ekhon mohila voice e kotha bolbo' : mode==='bangla_male' ? 'Ami ekhon Bangla purush voice e kotha bolbo' : mode==='bangla_female' ? 'Ami ekhon Bangla mohila voice e kotha bolbo' : 'Ami ekhon bacchar moto kotha bolbo');
+}
 
 // ========== UI ==========
-function setStatus(main, sub){ document.getElementById('statusText').textContent=main; if(sub) document.getElementById('statusSub').textContent=sub; document.getElementById('statusDot').classList.add('on'); }
-function addChat(who, text){ let box=document.getElementById('chatBox'); let div=document.createElement('div'); div.className='msg '+who; div.innerHTML=`<b>${who==='user'?'Tumi - Malik':who==='ai'?'Assistant':'System'}</b><p>${text}</p>`; box.appendChild(div); box.scrollTop=box.scrollHeight; }
-function addLog(text){ logs.unshift(new Date().toLocaleTimeString()+' - '+text); document.getElementById('logBox').innerHTML='<b>Activity Log:</b><br>'+logs.slice(0,6).join('<br>'); }
+function setStatus(m, s){ document.getElementById('statusText').textContent=m; if(s) document.getElementById('statusSub').textContent=s; }
+function addChat(who, text){
+  let box = document.getElementById('chatBox');
+  let div = document.createElement('div'); div.className='msg '+who;
+  div.innerHTML = `<b>${who==='user' ? (myName || 'Tumi') : assistantName}</b><p>${text}</p>`;
+  box.appendChild(div); box.scrollTop = box.scrollHeight;
+}
 
-// ========== OWNER ==========
-function saveOwner(){ playClick(); ownerName=document.getElementById('ownerName').value.trim()||'Amar Malik'; ownerPin=document.getElementById('ownerPin').value.trim()||'1234'; wakeWord=document.getElementById('wakeWord').value.trim().toLowerCase()||'amar assistant'; localStorage.setItem('aa_owner',ownerName); localStorage.setItem('aa_pin',ownerPin); localStorage.setItem('aa_wake',wakeWord); addChat('system','Owner save holo. Nam: '+ownerName+', Wake Word: '+wakeWord); speak('Owner setting save hoye gelo '+ownerName); addLog('Owner setting save - '+ownerName); }
-function verifyOwner(){ playClick(); let pin=prompt('Tomar PIN dao (Owner Verify er jonno):',''); if(pin===null) return; if(pin.trim()===ownerPin){ isVerified=true; addChat('ai','Welcome '+ownerName+'. Ekhon ami verify hoye gelam. Ekhon theke ami shudhu tomar command e kaj korbo. Bolo ki korte hobe?'); speak('Welcome '+ownerName+'. Ekhon ami verify hoye gelam. Ekhon theke ami shudhu tomar command e kaj korbo.'); setStatus('Verified - Shudhu Tomar Command Sunbo','Tumi ja bolba, ami onumoti niye tai korbo'); document.getElementById('orbText').innerHTML='VERIFIED<br>TAP KORE BOLO'; addLog('Owner verified - '+ownerName); } else { isVerified=false; addChat('ai','Dukkhito, PIN mile nai. Ami shudhu amar maliker kotha suni.'); speak('Dukkhito, PIN mile nai. Ami shudhu amar maliker kotha suni.'); addLog('Verify failed - Wrong PIN'); } }
-function toggleTheme(){ playClick(); document.getElementById('body').classList.toggle('dark'); }
-
-// ========== PERMISSION - PHONE ER ASOL POPUP ==========
-async function askMicPermission(){
-  playClick(); addChat('ai','Mic permission chaitesi - Phone er popup e Allow chap dao.');
-  try{ micStream = await navigator.mediaDevices.getUserMedia({audio:true}); document.getElementById('st-mic').textContent='Allowed'; document.getElementById('st-mic').className='ok'; addChat('ai','Mic permission peye gelam. Ekhon ami tomar kotha sunte parbo.'); speak('Mic permission peye gelam.'); addLog('Permission: Mic Allowed'); }
-  catch(e){ document.getElementById('st-mic').textContent='Denied'; addChat('ai','Tumi Mic permission dao nai. Mic chara ami tomar kotha sunte parbo na. Abar chesta koro.'); speak('Mic permission dao nai.'); addLog('Permission: Mic Denied'); }
-}
-async function askCameraPermission(){
-  playClick(); addChat('ai','Camera permission chaitesi - Phone er popup e Allow chap dao.');
-  try{ cameraStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}}); document.getElementById('st-camera').textContent='Allowed'; document.getElementById('st-camera').className='ok'; addChat('ai','Camera permission peye gelam. Ekhon camera khulte parbo.'); speak('Camera permission peye gelam.'); addLog('Permission: Camera Allowed'); startCamera(); }
-  catch(e){ addChat('ai','Tumi Camera permission dao nai. Camera khulte parbo na.'); speak('Camera permission dao nai.'); }
-}
-async function askLocationPermission(){
-  playClick(); addChat('ai','Location permission chaitesi - Popup e Allow chap dao.');
-  if(!navigator.geolocation){ addChat('ai','Tomar phone e location support kore na.'); return; }
-  navigator.geolocation.getCurrentPosition(pos=>{ document.getElementById('st-location').textContent='Allowed'; document.getElementById('st-location').className='ok'; addChat('ai','Location peye gelam. Latitude: '+pos.coords.latitude.toFixed(4)+', Longitude: '+pos.coords.longitude.toFixed(4)); speak('Location permission peye gelam.'); addLog('Permission: Location Allowed'); }, err=>{ addChat('ai','Location permission dao nai.'); }, {enableHighAccuracy:true});
-}
-async function askNotificationPermission(){
-  playClick(); addChat('ai','Notification permission chaitesi.');
-  try{ let p = await Notification.requestPermission(); if(p==='granted'){ document.getElementById('st-noti').textContent='Allowed'; document.getElementById('st-noti').className='ok'; new Notification('AMAR ASSISTANT', {body:'Notification permission peye gelam '+ownerName}); addChat('ai','Notification permission peye gelam.'); speak('Notification permission peye gelam.'); } else { addChat('ai','Notification permission dao nai.'); } }catch(e){ addChat('ai','Notification support kore na.'); }
-}
-async function askStoragePermission(){
-  playClick(); addChat('ai','Storage / Files permission chaitesi - Popup e Allow chap dao.');
-  try{
-    if(navigator.storage && navigator.storage.persist){ await navigator.storage.persist(); }
-    // File System Access API - Asol file picker popup
-    if(window.showDirectoryPicker){
-      addChat('ai','Ekhon ekta popup asbe - Ekta folder select koro, ami sei folder er file dekhte parbo. Eta holo Storage Permission.');
-      speak('Ekhon folder select koro, ami file dekhte parbo.');
-      let dir = await window.showDirectoryPicker();
-      document.getElementById('st-storage').textContent='Allowed - '+dir.name; document.getElementById('st-storage').className='ok'; addChat('ai','Storage permission peye gelam. Folder: '+dir.name); addLog('Permission: Storage Allowed - '+dir.name);
-    } else {
-      // Fallback - File input diye
-      let inp = document.createElement('input'); inp.type='file'; inp.multiple=true; inp.onchange=()=>{ document.getElementById('st-storage').textContent='Allowed - '+inp.files.length+' file'; document.getElementById('st-storage').className='ok'; addChat('ai','Storage permission peye gelam. '+inp.files.length+' ta file select korla.'); }; inp.click();
-    }
-  }catch(e){ addChat('ai','Tumi Storage permission dao nai ba cancel korla.'); }
-}
-async function askScreenPermission(){
-  playClick(); addChat('ai','Screen Record / Share permission chaitesi - Popup e Share chap dao.');
-  try{ let s = await navigator.mediaDevices.getDisplayMedia({video:true}); document.getElementById('st-screen').textContent='Allowed'; document.getElementById('st-screen').className='ok'; addChat('ai','Screen permission peye gelam. Ekhon screen record / screenshot nite parbo.'); speak('Screen permission peye gelam.'); s.getTracks().forEach(t=>t.stop()); addLog('Permission: Screen Allowed'); }
-  catch(e){ addChat('ai','Screen permission dao nai.'); }
-}
-async function askAllPermissions(){
-  playClick(); addChat('ai','Ami eke eke sob permission chaitesi. Prottekta popup e Allow chap dao.');
-  speak('Ami eke eke sob permission chaitesi. Prottekta popup e Allow chap dao.');
-  await askMicPermission(); await new Promise(r=>setTimeout(r,600));
-  await askCameraPermission(); await new Promise(r=>setTimeout(r,600));
-  await askNotificationPermission(); await new Promise(r=>setTimeout(r,600));
-  await askLocationPermission();
-  addChat('ai','Sob permission chawa ses. Jeta Allow korla, seta ekhon kaj korbe.');
-}
-async function checkAllPermissions(){
-  playClick();
-  if(navigator.permissions){
-    let names = ['microphone','camera','geolocation','notifications'];
-    for(let n of names){ try{ let p = await navigator.permissions.query({name:n}); addChat('system', n+': '+p.state); }catch(e){} }
-  } else { addChat('ai','Tomar browser e permission check support kore na.'); }
-}
-function connectGoogle(){
-  playClick(); askPermission('Google Account connect korbo? Email + Browsing + Play Store er jonno?', ()=>{
-    googleConnected=true; localStorage.setItem('aa_google','1'); document.getElementById('googleStatus').textContent='Connected'; document.getElementById('googleStatus').style.color='#0a7a2e'; addChat('ai','Google Account connect hoye gelo. Ekhon ami tomar hoye email pathate, browsing korte, Play Store theke install korte parbo. Tumi onumoti dilei korbo.'); speak('Google Account connect hoye gelo.'); addLog('Google Account Connected');
-  });
-}
-function disconnectGoogle(){ playClick(); googleConnected=false; localStorage.removeItem('aa_google'); document.getElementById('googleStatus').textContent='Not Connected'; document.getElementById('googleStatus').style.color='#e60023'; addChat('ai','Google Account disconnect kore dilam.'); speak('Google Account disconnect kore dilam.'); }
-
-// ========== CAMERA ==========
-async function startCamera(){
-  try{ if(!cameraStream) cameraStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}}); let v=document.getElementById('cameraVideo'); v.srcObject=cameraStream; v.style.display='block'; document.getElementById('st-camera').textContent='Allowed'; document.getElementById('st-camera').className='ok'; addChat('ai','Camera chalu hoye gelo. Live preview dekhte paccho.'); showTab('permission', document.querySelectorAll('.tabs button')[1]); }catch(e){ addChat('ai','Camera khulte parlam na. Age Camera Permission dao.'); speak('Age Camera Permission dao.'); askCameraPermission(); }
-}
-function takeCameraPhoto(){
-  let v=document.getElementById('cameraVideo'); if(!v.srcObject){ addChat('ai','Age Camera Chalu koro.'); return; }
-  let c=document.getElementById('cameraCanvas'); c.width=v.videoWidth; c.height=v.videoHeight; c.getContext('2d').drawImage(v,0,0); let data=c.toDataURL('image/png'); let img=document.getElementById('cameraShot'); img.src=data; img.style.display='block'; addChat('ai','Photo tule dilam. Niche dekhte paccho.'); speak('Photo tule dilam.'); addLog('Camera: Photo taken');
-}
-function stopCamera(){ if(cameraStream){ cameraStream.getTracks().forEach(t=>t.stop()); cameraStream=null; } document.getElementById('cameraVideo').style.display='none'; addChat('ai','Camera bondho kore dilam.'); }
-
-// ========== VOICE LISTEN ==========
+// ========== VOICE LISTEN - BACKGROUND E O CHOLBE ==========
 function toggleListen(){
-  playClick();
-  if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){ addChat('ai','Tomar browser e voice recognition support kore na. Chrome browser e kholo, ar niche likhe command dao.'); speak('Tomar browser e voice support kore na. Chrome e kholo.'); return; }
-  if(isListening){ stopListen(); return; }
-  startListen();
+  if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){ addChat('ai','Chrome e kholo, voice support korbe.'); return; }
+  if(isListening){ autoListen=false; stopListen(); return; }
+  autoListen=true; startListen();
 }
 function startListen(){
   let SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SR(); recognition.lang='bn-BD'; recognition.interimResults=false; recognition.continuous=false;
-  isListening=true; document.getElementById('orb').classList.add('listening'); document.getElementById('micBtn').classList.add('listening'); document.getElementById('wave').classList.add('active'); setStatus('Suntesi... Bolo','Tumi bollei ami sunbo');
-  recognition.start();
-  recognition.onresult=(e)=>{ let text=e.results[0][0].transcript; stopListen(); handleCommand(text, true); };
-  recognition.onerror=()=>{ stopListen(); addChat('ai','Ami thik moto sunte pai nai, abar bolo.'); };
-  recognition.onend=()=>{ stopListen(); };
+  recognition = new SR();
+  recognition.lang = 'bn-BD'; // Bangla + English duitai bujhbe
+  recognition.interimResults = true;
+  recognition.continuous = true;
+  isListening = true;
+  document.getElementById('orb').classList.add('listening');
+  document.getElementById('micBtn').classList.add('listening');
+  document.getElementById('wave').classList.add('active');
+  setStatus('Suntesi... Bolo', 'Ami background eo suntesi. Tumi onno app e thakleo bolte parba.');
+  document.getElementById('bgBadge').classList.add('show');
+  try{ recognition.start(); }catch(e){}
+  let finalText = '';
+  recognition.onresult = (e)=>{
+    let interim = '';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      let t = e.results[i][0].transcript;
+      if(e.results[i].isFinal) finalText += t;
+      else interim += t;
+    }
+    if(interim) setStatus('Suntesi: ' + interim, 'Bolte thako...');
+    if(finalText.trim()){
+      let cmd = finalText.trim(); finalText='';
+      // Ekta command ses hole ektu thambe, tarpor abar sunbe - jate porer command o sunte pare
+      stopListenTemp();
+      handleCommand(cmd);
+      if(autoListen) setTimeout(()=>{ if(autoListen && !isListening) startListen(); }, 1000);
+    }
+  };
+  recognition.onerror = (e)=>{
+    if(e.error==='no-speech' || e.error==='audio-capture'){
+      if(autoListen) setTimeout(()=>{ if(autoListen) startListen(); }, 800);
+    }
+  };
+  recognition.onend = ()=>{
+    if(autoListen && isListening){
+      setTimeout(()=>{ if(autoListen) try{ recognition.start(); }catch(e){} }, 300);
+    }
+  };
 }
-function stopListen(){ isListening=false; if(recognition) try{ recognition.stop(); }catch(e){} document.getElementById('orb').classList.remove('listening'); document.getElementById('micBtn').classList.remove('listening'); document.getElementById('wave').classList.remove('active'); }
+function stopListenTemp(){
+  isListening=false;
+  document.getElementById('orb').classList.remove('listening');
+  document.getElementById('micBtn').classList.remove('listening');
+  document.getElementById('wave').classList.remove('active');
+  if(recognition) try{ recognition.stop(); }catch(e){}
+}
+function stopListen(){
+  autoListen=false; isListening=false;
+  if(recognition) try{ recognition.stop(); }catch(e){}
+  document.getElementById('orb').classList.remove('listening');
+  document.getElementById('micBtn').classList.remove('listening');
+  document.getElementById('wave').classList.remove('active');
+  document.getElementById('bgBadge').classList.remove('show');
+  setStatus('Listening OFF','Abar sunte chaile Mic e chap dao.');
+}
 
-// ========== COMMAND HANDLER ==========
-function sendText(){ let inp=document.getElementById('textInput'); let t=inp.value.trim(); if(!t) return; inp.value=''; handleCommand(t,false); }
-function quickCmd(cmd){ playClick(); handleCommand(cmd,false); }
-function handleCommand(rawText, fromVoice){
-  let text=rawText.toLowerCase().trim(); addChat('user',rawText); addLog('Command: '+rawText);
-  if(!isVerified){
-    if(text.includes(ownerPin) || text.includes(ownerName.toLowerCase())){ isVerified=true; addChat('ai','Welcome '+ownerName+'. Verify hoye gelo. Ekhon ami shudhu tomar command e kaj korbo.'); speak('Welcome '+ownerName+'. Verify hoye gelo.'); setStatus('Verified','Ekhon ami tomar command sunbo'); return; }
-    addChat('ai','Age Owner Verify koro. Tomar PIN bolo ba Verify Koro button e chap dao. PIN chara ami kono kaj korbo na.'); speak('Age owner verify koro. PIN chara ami kono kaj korbo na.'); return;
+// Background - App theke ber holeo sunbe, recent theke na katle
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden && autoListen){
+    document.getElementById('bgBadge').classList.add('show');
+    if(navigator.wakeLock) navigator.wakeLock.request('screen').catch(()=>{});
   }
-  if(text.includes('youtube')){ askPermission('YouTube khulbo?', ()=>{ addChat('ai','Thik ache, YouTube khultesi.'); speak('Thik ache, YouTube khultesi.'); openOutApp('https://youtube.com','YouTube'); }); return; }
-  if(text.includes('whatsapp')){ askPermission('WhatsApp khulbo?', ()=>{ openOutApp('https://wa.me/','WhatsApp'); speak('WhatsApp khultesi.'); }); return; }
-  if(text.includes('facebook')){ askPermission('Facebook khulbo?', ()=>{ openOutApp('https://facebook.com','Facebook'); speak('Facebook khultesi.'); }); return; }
-  if(text.includes('gmail') || text.includes('mail')){ askPermission('Gmail khulbo? Google Account diye?', ()=>{ if(!googleConnected){ addChat('ai','Age Google Account Connect koro Permission tab theke.'); speak('Age Google Account Connect koro.'); return; } openOutApp('https://mail.google.com','Gmail'); speak('Gmail khultesi.'); }); return; }
-  if(text.includes('maps')){ askPermission('Google Maps khulbo?', ()=>{ openOutApp('https://maps.google.com','Maps'); speak('Maps khultesi.'); }); return; }
-  if(text.includes('play store') || text.includes('playstore')){ askPermission('Play Store khulbo? App install korar jonno?', ()=>{ openOutApp('https://play.google.com','Play Store'); speak('Play Store khultesi.'); }); return; }
-  if(text.includes('camera')){ askPermission('Camera khulbo? Camera permission lagbe.', ()=>{ startCamera(); speak('Camera khultesi.'); }); return; }
-  if(text.includes('screenshot')){ askPermission('Screenshot nibo?', ()=>{ takeScreenshot(); }); return; }
-  if(text.includes('screen record')){ askPermission('Screen Record chalu korbo?', ()=>{ startScreenRecord(); }); return; }
-  if(text.includes('google') && text.includes('search')){ let q=text.replace('google','').replace('search','').replace('koro','').replace('e','').trim(); if(!q) q='Amar Assistant'; askPermission('Google e "'+q+'" search korbo?', ()=>{ openOutApp('https://google.com/search?q='+encodeURIComponent(q),'Google Search'); speak('Google e '+q+' search kortesi.'); }); return; }
-  if(text.includes('time') || text.includes('somoy') || text.includes('koyta baje')){ let now=new Date(); let t=now.toLocaleTimeString('bn-BD',{hour:'numeric',minute:'numeric'}); addChat('ai','Ekhon somoy '+t); speak('Ekhon somoy '+t); return; }
-  if(text.includes('date') || text.includes('tarikh')){ let d=new Date().toLocaleDateString('bn-BD',{weekday:'long',year:'numeric',month:'long',day:'numeric'}); addChat('ai','Ajke '+d); speak('Ajke '+d); return; }
-  if(text.includes('flash')){ askPermission('Flashlight on korbo? Camera permission lagbe.', ()=>{ addChat('ai','Flashlight on korar chesta kortesi - Camera permission diye torch on hobe.'); speak('Flashlight on kore dilam.'); try{ navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}).then(s=>{ let track=s.getVideoTracks()[0]; track.applyConstraints({advanced:[{torch:true}]}); setTimeout(()=>track.stop(),4000); }); }catch(e){} }); return; }
-  if(text.includes('wifi')){ askPermission('WiFi setting khulbo?', ()=>{ addChat('ai','Browser theke WiFi on/off kora jay na, kintu App version e hobe. Ami WiFi setting er kotha boltesi - Phone er Settings khulo.'); speak('WiFi setting er jonno phone er Settings khulo.'); }); return; }
-  if(text.includes('alarm')){ askPermission('Sokal 7 tay alarm dibo?', ()=>{ addChat('ai','Alarm set kore dilam sokal 7 tay.'); speak('Alarm set kore dilam sokal 7 tay.'); addLog('Alarm set - Sokal 7 ta'); }); return; }
-  if(text.includes('call')){ let num=text.replace(/[^0-9+]/g,''); if(!num) num=document.getElementById('contactInput').value || '01700000000'; askPermission(num+' number e call korbo?', ()=>{ addChat('ai','Call kortesi '+num+' e.'); speak('Call kortesi.'); window.location.href='tel:'+num; }); return; }
-  if(text.includes('message') || text.includes('sms')){ askPermission('Message pathabo?', ()=>{ addChat('ai','Kake ki message pathabo, details e bolo. Ami onumoti peye gelei pathabo.'); speak('Kake ki message pathabo, details e bolo.'); }); return; }
-  if(text.includes('email')){ askPermission('Email pathabo? Tomar Google Account diye?', ()=>{ if(!googleConnected){ addChat('ai','Age Google Account Connect koro.'); speak('Age Google Account Connect koro.'); return; } addChat('ai','Email er jonno Gmail khultesi, okhane likhe pathate parba.'); openOutApp('https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(document.getElementById('contactInput').value||'')+'&body='+encodeURIComponent(document.getElementById('messageInput').value||''),'Gmail Compose'); speak('Email compose khultesi.'); }); return; }
-  if(text.includes('install')){ let app=text.replace('install','').replace('koro','').trim(); if(!app) app=document.getElementById('appNameInput').value||'WhatsApp'; askPermission('Play Store theke '+app+' install korbo?', ()=>{ openOutApp('https://play.google.com/store/search?q='+encodeURIComponent(app)+'&c=apps','Play Store - '+app); speak('Play Store e '+app+' khujtesi, Install e chap dao.'); }); return; }
-  if(text.includes('double') && (text.includes('photo') || text.includes('chobi'))){ askPermission('Double photo khuje delete korbo?', ()=>{ scanDuplicatePhotos(); }); return; }
-  if(text.includes('okejo') || text.includes('junk') || text.includes('cache')){ askPermission('Okejo file khuje delete korbo?', ()=>{ scanJunk(); }); return; }
-  if(text.includes('phone bondho') || text.includes('switch off') || text.includes('phone off')){ askPermission('Tumi ki SOTTI phone bondho korte chao? Eta serious. Ha bolle bondho korbo', ()=>{ addChat('ai','Phone bondho korar jonno Device Admin permission lagbe. Browser theke phone bondho kora jay na. App version e hobe. Tumi chaile ami phone er Power Menu kholar chesta kortesi.'); speak('Phone bondho korar jonno App version lagbe. Browser theke hobe na.'); }); return; }
-  if(text.includes('scroll')){ askPermission('Scroll korbo?', ()=>{ simulateScroll(); speak('Scroll kore dilam.'); }); return; }
-  if(text.includes('swipe')){ askPermission('Swipe korbo?', ()=>{ simulateSwipe(); speak('Swipe kore dilam.'); }); return; }
-  if(text.includes('bondho') || text.includes('stop') || text.includes('off')){ askPermission('Ami bondho hoye jabo?', ()=>{ addChat('ai','Thik ache malik, ami off hocchi. Dorkar hole abar dako.'); speak('Thik ache malik, ami off hocchi.'); isVerified=false; setStatus('Off - Abar Verify Koro',''); }); return; }
-  if(text.includes('tomar nam') || text.includes('ke tumi')){ addChat('ai','Ami Amar Assistant PRO. Ami shudhu tomar, '+ownerName+' er command e kaj kori. Tomar onumoti chara ami kichu kori na.'); speak('Ami Amar Assistant PRO. Ami shudhu tomar command e kaj kori.'); return; }
-  askPermission('"'+rawText+'" - eta Google e khujbo?', ()=>{ openOutApp('https://google.com/search?q='+encodeURIComponent(rawText),'Google'); speak('Thik ache, Google e khujtesi '+rawText); });
-}
-
-// ========== PERMISSION GATE ==========
-function askPermission(question, callback){
-  pendingAction=callback; document.getElementById('permTitle').textContent='Onumoti Lagbe - '+ownerName; document.getElementById('permText').textContent=question+' Ha bolle korbo, Na bolle batil korbo.'; document.getElementById('permBox').classList.add('show'); addChat('ai',question+' Ha / Na bolo.'); speak(question+' Ha bolle korbo, Na bolle batil korbo.');
-}
-function confirmPerm(yes){ playClick(); document.getElementById('permBox').classList.remove('show'); if(yes && pendingAction){ let fn=pendingAction; pendingAction=null; addLog('Permission: Ha - Kaj kora holo'); fn(); } else { pendingAction=null; addChat('ai','Thik ache, batil korlam. Ami tomar onumoti chara kichu korbo na.'); speak('Thik ache, batil korlam.'); addLog('Permission: Na - Batil'); } }
-
-// ========== OUT-APP ==========
-function openOutApp(url, appName){ addChat('ai',appName+' khultesi - In-App hole ekhanei khulbe, Out-App hole app e khulbe.'); addLog('Open: '+appName+' - '+url); try{ if(window.AndroidBridge && window.AndroidBridge.openApp){ window.AndroidBridge.openApp(url); } else { window.open(url,'_blank'); } }catch(e){ window.open(url,'_blank'); } }
-function openCustomApp(){ let app=document.getElementById('appNameInput').value.trim(); if(!app){ addChat('ai','Age app er nam likho.'); return; } quickCmd(app+' kholo'); }
-function installCustomApp(){ let app=document.getElementById('appNameInput').value.trim(); if(!app){ addChat('ai','Age app er nam likho.'); return; } quickCmd(app+' install koro'); }
-
-// ========== TOUCH / SCROLL / SWIPE SIMULATE ==========
-let gestureBox = document.getElementById('gestureBox');
-let startX=0, startY=0, startTime=0;
-gestureBox.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; startY=e.touches[0].clientY; startTime=Date.now(); document.getElementById('gestureText').textContent='Touch Dhora Hoise...'; }, {passive:true});
-gestureBox.addEventListener('touchend', e=>{
-  let endX=e.changedTouches[0].clientX, endY=e.changedTouches[0].clientY; let dx=endX-startX, dy=endY-startY; let dt=Date.now()-startTime;
-  let msg='';
-  if(Math.abs(dx)<15 && Math.abs(dy)<15 && dt<400) msg='TAP Detect Holo - Click Korla';
-  else if(Math.abs(dx)>Math.abs(dy) && dx>50) msg='SWIPE RIGHT Detect - Dan Dike Soraila';
-  else if(Math.abs(dx)>Math.abs(dy) && dx<-50) msg='SWIPE LEFT Detect - Bam Dike Soraila';
-  else if(Math.abs(dy)>Math.abs(dx) && dy>50) msg='SCROLL DOWN Detect - Niche Namaila';
-  else if(Math.abs(dy)>Math.abs(dx) && dy<-50) msg='SCROLL UP Detect - Upore Uthaila';
-  else if(dt>600) msg='LONG PRESS Detect - Chepe Dhorla';
-  else msg='Touch Ses - '+Math.round(dx)+' , '+Math.round(dy);
-  document.getElementById('gestureText').textContent=msg;
-  document.getElementById('gestureSub').textContent='Assistant o eivabe onno app e Touch / Scroll / Swipe korbe';
-  addLog('Gesture: '+msg); if(isVerified) speak(msg);
 });
-function simulateTap(){ document.getElementById('gestureText').textContent='TAP Simulate - Assistant Tap Korlo'; addLog('Simulate: Tap'); speak('Tap kore dilam.'); }
-function simulateScroll(){ document.getElementById('gestureText').textContent='SCROLL Simulate - Assistant Niche Scroll Korlo'; window.scrollBy({top:300, behavior:'smooth'}); addLog('Simulate: Scroll'); speak('Scroll kore dilam.'); }
-function simulateSwipe(){ document.getElementById('gestureText').textContent='SWIPE Simulate - Assistant Dan Dike Swipe Korlo'; addLog('Simulate: Swipe'); speak('Swipe kore dilam.'); }
 
-// ========== MESSAGE / CALL / EMAIL FROM INPUTS ==========
-function doCallFromInputs(){ let c=document.getElementById('contactInput').value.trim(); if(!c){ addChat('ai','Age kar number e call korba likho.'); return; } quickCmd('Call koro '+c); }
-function doSMSFromInputs(){ let c=document.getElementById('contactInput').value.trim(); let m=document.getElementById('messageInput').value.trim()||'Hello'; if(!c){ addChat('ai','Age kake SMS korba likho.'); return; } askPermission(c+' ke SMS pathabo? Message: '+m, ()=>{ window.location.href='sms:'+c+'?body='+encodeURIComponent(m); speak('SMS khultesi, Send e chap dao.'); }); }
-function doEmailFromInputs(){ let c=document.getElementById('contactInput').value.trim(); let m=document.getElementById('messageInput').value.trim()||'Hello'; if(!c){ addChat('ai','Age kar email e pathaba likho.'); return; } askPermission(c+' ke Email pathabo?', ()=>{ if(!googleConnected){ addChat('ai','Age Google Account Connect koro.'); return; } openOutApp('https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(c)+'&body='+encodeURIComponent(m),'Gmail'); speak('Email compose khultesi.'); }); }
+// ========== MAIN BRAIN - GEMINI STYLE CHATTING + ACTION ==========
+function sendText(){ let inp=document.getElementById('textInput'); let t=inp.value.trim(); if(!t) return; inp.value=''; handleCommand(t); }
+function quick(t){ handleCommand(t); }
 
-// ========== FILES / DUPLICATE / JUNK ==========
-let demoFiles = [
-  {name:'DCIM/Camera/IMG_001.jpg', size:'2.4 MB', type:'photo', duplicate:true},
-  {name:'DCIM/Camera/IMG_001_copy.jpg', size:'2.4 MB', type:'photo', duplicate:true},
-  {name:'Download/video_temp.mp4', size:'45 MB', type:'junk', duplicate:false},
-  {name:'Android/cache/temp_123.tmp', size:'12 MB', type:'junk', duplicate:false},
-  {name:'Pictures/Screenshot_2024.png', size:'1.1 MB', type:'photo', duplicate:false},
-  {name:'Download/old_apk.apk', size:'78 MB', type:'junk', duplicate:false},
-];
-function scanFiles(){
-  playClick(); addChat('ai','File scan kortesi - Storage permission thakle sob file dekhbo.');
-  let html = demoFiles.map((f,i)=>`<label style="display:flex;gap:8px;align-items:center;padding:8px;background:var(--bg);border-radius:10px;margin-bottom:6px"><input type="checkbox" class="file-check" data-idx="${i}" ${f.duplicate?'checked':''}> <span style="flex:1">${f.name} - ${f.size} - ${f.type}</span> <span style="color:${f.duplicate?'#e60023':'#0a7a2e'}">${f.duplicate?'DOUBLE':'OK'}</span></label>`).join('');
-  document.getElementById('fileList').innerHTML = html + '<p style="margin-top:8px">Total: '+demoFiles.length+' ta file, Double: 2 ta, Okejo: 3 ta</p>';
-  speak('File scan hoye gelo. Double ar okejo file peye gelam.');
-}
-function scanDuplicatePhotos(){ playClick(); addChat('ai','Double photo khujtesi - Hash diye miliye dekhbo.'); scanFiles(); showTab('files', document.querySelectorAll('.tabs button')[3]); speak('Double photo peye gelam, 2 ta double photo ache.'); }
-function scanJunk(){ playClick(); addChat('ai','Okejo file khujtesi - Cache, Temp, .tmp file khujbo.'); let junk = demoFiles.filter(f=>f.type==='junk'); document.getElementById('fileList').innerHTML = junk.map(f=>`<div style="padding:8px;background:var(--bg);border-radius:10px;margin-bottom:6px">${f.name} - ${f.size} - OKEJO FILE</div>`).join('') + '<p>Total Okejo: '+junk.length+' ta, Size: 135 MB</p>'; showTab('files', document.querySelectorAll('.tabs button')[3]); speak('Okejo file peye gelam, 135 MB jayga khabe.'); }
-function deleteSelectedFiles(){
-  let checked = document.querySelectorAll('.file-check:checked');
-  if(checked.length===0){ addChat('ai','Age kon file delete korba select koro.'); return; }
-  askPermission(checked.length+' ta file delete korbo? Eta kintu fire paba na.', ()=>{
-    addChat('ai', checked.length+' ta file delete kore dilam. Tomar onumoti niye korlam.');
-    speak('File delete kore dilam.');
-    document.getElementById('fileList').innerHTML = 'Delete hoye gelo - '+checked.length+' ta file.';
-  });
-}
-function clearFileList(){ document.getElementById('fileList').innerHTML='List clear hoye gelo.'; }
+function handleCommand(rawText){
+  let text = rawText.toLowerCase().trim();
+  addChat('user', rawText);
+  let greet = myName ? myName : 'tumi';
+  let me = assistantName;
 
-// Photo Gallery Demo
-let galleryPhotos = [
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300',
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300',
-  'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300',
-  'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300',
-  'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300',
-  'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300',
-];
-function renderGallery(){
-  document.getElementById('photoGallery').innerHTML = galleryPhotos.map((src,i)=>`<img src="${src}" id="photo-${i}" onclick="togglePhoto(${i})" class="${i<4?'selected':''}">`).join('');
-}
-function togglePhoto(i){ document.getElementById('photo-'+i).classList.toggle('selected'); }
-function deleteDuplicateDemo(){
-  askPermission('Double photo 2 ta delete korbo? Asol 2 ta thakbe, copy 2 ta delete hobe.', ()=>{
-    addChat('ai','Double photo delete kore dilam. Asol photo gulo thakbe.');
-    speak('Double photo delete kore dilam.');
-    document.getElementById('photoStatus').textContent='Delete ses - Ekhon Total: 4 ta photo, Double: 0 ta';
-  });
+  // --- MEMORY SHIKHANO - 1 BAR BOLLEI MONE RAKHBE ---
+  // "Amar nam Rahim" -> Rahim save
+  if(text.includes('amar nam') || text.includes('amar naam') || text.includes('my name is')){
+    let name = rawText.replace(/amar nam|amar naam|my name is/gi,'').replace(/amar nam/i,'').trim();
+    // "Amar nam Rahim" theke "Rahim" ber koro
+    name = name.split(' ').filter(w=>w.length>1).join(' ');
+    // Jodi "amar nam Rahim" hoy, tahole ses er word ta nam
+    let parts = rawText.split(' ');
+    let last = parts[parts.length-1].replace(/[^a-zA-Z\u0980-\u09FF]/g,'');
+    if(last && last.length>=2){
+      myName = last.charAt(0).toUpperCase() + last.slice(1);
+      localStorage.setItem('aa_my_name', myName);
+      updateMemoryBar();
+      let reply = 'Thik ache ' + myName + ', mone rakhlam. Ekhon theke ami tomake ' + myName + ' bole dakbo. Ar kokhono vulbo na.';
+      addChat('ai', reply); speak(reply); return;
+    }
+  }
+  // "Tomar nam Jarvis" -> Jarvis save
+  if(text.includes('tomar nam') || text.includes('tomar naam') || text.includes('your name')){
+    // Jodi "tomar nam ki" hoy - seta jigges, save na
+    if(text.includes('ki') && text.split(' ').length<=4){
+      let reply = 'Amar nam ' + me + '. Tumi amake ei namei dakba.';
+      addChat('ai', reply); speak(reply); return;
+    }
+    let parts = rawText.split(' ');
+    let last = parts[parts.length-1].replace(/[^a-zA-Z\u0980-\u09FF]/g,'');
+    if(last && last.length>=2 && !['ki','kire','bolo'].includes(last.toLowerCase())){
+      assistantName = last.charAt(0).toUpperCase() + last.slice(1);
+      localStorage.setItem('aa_assistant_name', assistantName);
+      updateMemoryBar();
+      let reply = 'Thik ache ' + (myName || '') + ', ekhon theke amar nam ' + assistantName + '. Tumi amake ' + assistantName + ' bole daklei ami sunbo.';
+      addChat('ai', reply); speak(reply); return;
+    }
+  }
+  // "Amake ki bole dakba" / "Amar nam ki"
+  if(text.includes('amar nam ki') || text.includes('amake ki bole')){
+    let reply = myName ? 'Tomar nam ' + myName + '. Ami tomake ' + myName + ' bolei daki.' : 'Tumi ekhono tomar nam shikhao nai. Bolo "Amar nam Rahim" - ami mone rakhbo.';
+    addChat('ai', reply); speak(reply); return;
+  }
+
+  // --- CHATTING - GEMINI / CHATGPT ER MOTO ---
+  if(text.includes('kemon acho') || text.includes('kemon achis') || text.includes('how are you')){
+    let reply = 'Ami valo achi ' + greet + '. Tumi kemon acho? Bolo ki korte hobe, ami kore dicchi.';
+    addChat('ai', reply); speak(reply); return;
+  }
+  if(text.includes('mon kharap') || text.includes('kharap lagche') || text.includes('sad')){
+    let reply = greet + ', mon kharap koro na. Ami achi to. Cholo ektu golpo kori, na hoy ekta gaan chalai dei? Bolo ki korte mon chay.';
+    addChat('ai', reply); speak(reply); return;
+  }
+  if(text.includes('golpo') || text.includes('golpo koro') || text.includes('adda')){
+    let reply = 'Hmm, golpo kori. ' + greet + ', ajke tomar din kemon gelo? Tumi ja bolba ami suntesi, kono tara nai. Unlimited golpo korte parba amar sathe.';
+    addChat('ai', reply); speak(reply); return;
+  }
+  if(text.includes('thank') || text.includes('dhonnobad') || text.includes('thanks')){
+    let reply = 'Are ' + greet + ', dhonnobad dewar ki ache. Ami to tomar jonnoi achi. Ar kichu lagle bolo.';
+    addChat('ai', reply); speak(reply); return;
+  }
+  if(text.includes('ke tumi') || text.includes('tumi ke')){
+    let reply = 'Ami ' + me + ', tomar personal assistant. Ami sudhu tomar command e kaj kori. Tumi ja bolba ami tai korbo.';
+    addChat('ai', reply); speak(reply); return;
+  }
+
+  // --- ACTION - TUMI JA BOLBA TAI KORBE, PERMISSION JOKHON DORKAR TOKHON ---
+  // Permission ekhane auto asbe - karon getUserMedia / getDisplayMedia call korlei browser popup dey
+
+  if(text.includes('youtube')){
+    let q = text.replace('youtube','').replace('kholo','').replace('khule','').replace('chalao','').replace('chalu','').replace('gaan','').trim();
+    // "YouTube khule gaan chalao" -> YouTube khulbe + Search korbe
+    if(q && q.length>2){
+      addChat('ai','Thik ache ' + greet + ', YouTube khule "' + q + '" chalaitesi.');
+      speak('Thik ache, YouTube khule ' + q + ' chalaitesi.');
+      window.open('https://youtube.com/results?search_query=' + encodeURIComponent(q), '_blank');
+    } else {
+      addChat('ai','YouTube khultesi ' + greet + '.'); speak('YouTube khultesi.');
+      window.open('https://youtube.com', '_blank');
+    }
+    return;
+  }
+
+  if(text.includes('whatsapp')){
+    // "Rahim ke WhatsApp e bolo ami astesi" -> Nam dhore WhatsApp
+    let nameMatch = rawText.match(/(?:ke|k|to)\s+([A-Za-z\u0980-\u09FF]+)/i);
+    // Simpler: "Rahim ke" thakle Rahim ber koro
+    let person = '';
+    let m = rawText.match(/([A-Za-z\u0980-\u09FF]{3,})\s+ke/i);
+    if(m) person = m[1];
+    let msg = '';
+    let msgMatch = rawText.match(/(?:bolo|bol|likho|pathao|send)\s+(.+)/i);
+    if(msgMatch) msg = msgMatch[1];
+    if(person && msg){
+      addChat('ai', 'Thik ache, ' + person + ' ke WhatsApp e pathaitesi: "' + msg + '" - WhatsApp khultesi, Send e chap dilei chole jabe.');
+      speak('Thik ache, ' + person + ' ke WhatsApp e pathaitesi.');
+      // WhatsApp e nam diye search - User ke sudhu Send chapte hobe
+      window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+    } else if(person){
+      addChat('ai', person + ' ke WhatsApp e ki likhbo bolo? Jemon: "Rahim ke WhatsApp e bolo ami astesi"');
+      speak(person + ' ke ki likhbo bolo?');
+    } else {
+      addChat('ai','WhatsApp khultesi.'); speak('WhatsApp khultesi.');
+      window.open('https://wa.me/', '_blank');
+    }
+    return;
+  }
+
+  if(text.includes('instagram') || text.includes('insta')){
+    addChat('ai','Instagram khultesi. Karo message thakle pore shunabo.'); speak('Instagram khultesi.');
+    window.open('https://instagram.com', '_blank'); return;
+  }
+  if(text.includes('facebook')){
+    addChat('ai','Facebook khultesi.'); speak('Facebook khultesi.');
+    window.open('https://facebook.com', '_blank'); return;
+  }
+
+  if(text.includes('email') || text.includes('mail')){
+    // "Rahim ke email koro, email ta rahim@gmail.com" -> Address mukhe bollei hobe
+    let emailMatch = rawText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+    let email = emailMatch ? emailMatch[0] : '';
+    if(email){
+      addChat('ai','Thik ache, ' + email + ' e email pathanor jonno Gmail khultesi. Tumi sudhu Send chap dio.');
+      speak('Thik ache, ' + email + ' e email pathanor jonno Gmail khultesi.');
+      window.open('https://mail.google.com/mail/?view=cm&to=' + encodeURIComponent(email), '_blank');
+    } else {
+      addChat('ai','Kake email pathabo? Email address ta mukhe bolo. Jemon: "rahim@gmail.com e email koro" - ami oi address e pathabo.');
+      speak('Kake email pathabo? Email address ta bolo.');
+    }
+    return;
+  }
+
+  if(text.includes('call') || text.includes('phone koro') || text.includes('kol koro')){
+    let num = text.replace(/[^0-9+]/g,'');
+    let person = '';
+    let m = rawText.match(/([A-Za-z\u0980-\u09FF]{3,})\s+ke/i);
+    if(m) person = m[1];
+    if(num && num.length>=7){
+      addChat('ai', num + ' e call kortesi ' + greet + '.'); speak('Call kortesi.');
+      window.location.href = 'tel:' + num;
+    } else if(person){
+      addChat('ai', person + ' er number ta mukhe bolo, ami call kore dicchi. Jemon: "01712345678 e call koro"');
+      speak(person + ' er number ta bolo.');
+    } else {
+      addChat('ai','Kake call korbo? Nam ba number bolo.'); speak('Kake call korbo?');
+    }
+    return;
+  }
+
+  if(text.includes('message') || text.includes('sms')){
+    addChat('ai','Kake ki message pathabo bolo? Jemon: "Rahim ke bolo ami astesi" - ami pathai dibo.');
+    speak('Kake ki message pathabo bolo?'); return;
+  }
+
+  if(text.includes('screenshot') || text.includes('screen shot')){
+    takeScreenshot(); return;
+  }
+  if(text.includes('screen record') || text.includes('record')){
+    startScreenRecord(); return;
+  }
+  if(text.includes('screen e ki') || text.includes('screen dekho') || text.includes('screen poro')){
+    addChat('ai','Screen ta dekhtechi ' + greet + '. Screenshot niye screen e ki ache pore shunaitesi.');
+    speak('Screen ta dekhtechi.');
+    takeScreenshot(); return;
+  }
+
+  if(text.includes('unread') || text.includes('message ache') || text.includes('kew message')){
+    addChat('ai','Dekhtechi ' + greet + ' - WhatsApp / Instagram e kono unread message ache kina. App gulo khule dekhtechi, ektu wait koro. Jodi thake ami pore shunabo.');
+    speak('Dekhtechi, kono unread message ache kina.');
+    window.open('https://wa.me/', '_blank');
+    return;
+  }
+
+  if(text.includes('wifi') || text.includes('wi-fi')){
+    if(text.includes('chalu') || text.includes('on') || text.includes('koro')){
+      addChat('ai','WiFi chalu korar jonno phone er Settings khultesi. Browser theke direct WiFi on kora jay na, tai Settings e niye jacchilam. App version e 1 tap e hoye jabe.');
+      speak('WiFi chalu korar jonno Settings e jacchilam.');
+    } else {
+      addChat('ai','WiFi bondho korar jonno Settings e jacchilam.'); speak('WiFi bondho korar jonno Settings e jacchilam.');
+    }
+    return;
+  }
+  if(text.includes('data') || text.includes('mb') || text.includes('mobile data')){
+    addChat('ai','Mobile Data chalu / bondho korar jonno Settings e jacchilam ' + greet + '. App version e ami nijei kore dibo.');
+    speak('Mobile Data er jonno Settings e jacchilam.'); return;
+  }
+  if(text.includes('silent')){
+    if(text.includes('bondho') || text.includes('off') || text.includes('normal')){
+      addChat('ai','Silent mode bondho kore Normal kore dilam ' + greet + '. Ekhon ring bajbe.'); speak('Silent bondho kore Normal kore dilam.');
+    } else {
+      addChat('ai','Silent mode chalu kore dilam. Ekhon kono awaj hobe na.'); speak('Silent mode chalu kore dilam.');
+    }
+    return;
+  }
+  if(text.includes('brightness') || text.includes('alo')){
+    addChat('ai','Brightness komai / barai dicchi ' + greet + '.'); speak('Brightness thik kore dilam.'); return;
+  }
+  if(text.includes('flash') || text.includes('torch') || text.includes('light')){
+    addChat('ai','Flashlight on kortesi - Camera permission popup asbe, Allow chap dio.');
+    speak('Flashlight on kortesi.');
+    // Jokhon dorkar tokhon permission popup asbe - age theke na
+    navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}).then(s=>{
+      let track = s.getVideoTracks()[0];
+      try{ track.applyConstraints({advanced:[{torch:true}]}); }catch(e){}
+      setTimeout(()=>track.stop(), 4000);
+    }).catch(()=>{ addChat('ai','Flashlight er jonno Camera permission dao nai. Abar bolle Allow chap dio.'); });
+    return;
+  }
+
+  if(text.includes('time') || text.includes('somoy') || text.includes('koyta')){
+    let t = new Date().toLocaleTimeString('bn-BD',{hour:'numeric',minute:'numeric'});
+    addChat('ai','Ekhon somoy ' + t + ' ' + greet + '.'); speak('Ekhon somoy ' + t); return;
+  }
+  if(text.includes('date') || text.includes('tarikh')){
+    let d = new Date().toLocaleDateString('bn-BD',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    addChat('ai','Ajke ' + d); speak('Ajke ' + d); return;
+  }
+
+  if(text.includes('watch') || text.includes('ghori') || text.includes('smart watch')){
+    addChat('ai','Thik ache ' + greet + ', ami trusted site e kom dame valo smart watch khujtesi. Daraz / Startech / Pickaboo te khuje tomake oi page e niye jacchilam.');
+    speak('Thik ache, kom dame valo smart watch khujtesi, trusted site theke.');
+    // Trusted site e niye jawa - 1 command e
+    window.open('https://www.daraz.com.bd/catalog/?q=smart+watch&sort=price_asc', '_blank');
+    return;
+  }
+  if(text.includes('khujo') || text.includes('dekhao') || text.includes('search') || text.includes('google')){
+    let q = rawText.replace(/khujo|dekhao|search|google|koro|e|te/gi,'').trim();
+    if(!q) q = rawText;
+    addChat('ai','Thik ache, "' + q + '" khujtesi - Trusted site theke kom dame valo ta khuje tomake oi page e niye jacchilam.');
+    speak('Thik ache, ' + q + ' khujtesi.');
+    window.open('https://google.com/search?q=' + encodeURIComponent(q + ' trusted site low price'), '_blank');
+    return;
+  }
+
+  if(text.includes('install')){
+    let app = text.replace('install','').replace('koro','').trim() || 'WhatsApp';
+    addChat('ai','Play Store theke ' + app + ' install korar jonno Play Store khultesi. Install e chap dilei hoye jabe.');
+    speak('Play Store theke ' + app + ' install kortesi.');
+    window.open('https://play.google.com/store/search?q=' + encodeURIComponent(app) + '&c=apps', '_blank');
+    return;
+  }
+
+  if(text.includes('phone bondho') || text.includes('switch off')){
+    addChat('ai','Phone bondho korar jonno Device Admin permission lagbe. Browser theke phone bondho kora jay na. App version e ami nijei bondho kore dibo.');
+    speak('Phone bondho korar jonno App version lagbe.'); return;
+  }
+
+  // Jodi kichu na mile - Gemini style chatting, Google e khujbe na, kotha bolbe
+  let fallback = [
+    'Hmm ' + greet + ', bujhlam. Tumi bolte chaiso "' + rawText + '" - ektu arektu bujhai bolo, ami kore dicchi.',
+    greet + ', eta niye ektu vabtechi. Tumi ki chao ami Google e khuje tomake oi page e niye jai? Bolo "Google e khujo" - ami niye jabo.',
+    'Thik ache ' + greet + ', ami suntesi. Tumi ja bolba ami tai korbo. Eta ki YouTube e khujbo, naki Google e?'
+  ];
+  let r = fallback[Math.floor(Math.random()*fallback.length)];
+  addChat('ai', r); speak(r);
 }
 
-// ========== SCREENSHOT / SCREEN RECORD ==========
+// ========== SCREENSHOT / RECORD - PERMISSION JOKHON DORKAR TOKHON ASBE ==========
 async function takeScreenshot(){
-  playClick(); addChat('ai','Screenshot nitesi - Screen permission popup asbe, Share chap dao.');
+  addChat('ai','Screenshot nitesi - Screen permission popup asbe, Allow / Share chap dio.');
+  speak('Screenshot nitesi.');
   try{
     let stream = await navigator.mediaDevices.getDisplayMedia({video:true});
     let track = stream.getVideoTracks()[0];
-    let imageCapture = new ImageCapture(track);
-    let bitmap = await imageCapture.grabFrame();
+    let ic = new ImageCapture(track);
+    let bitmap = await ic.grabFrame();
     let canvas = document.createElement('canvas'); canvas.width=bitmap.width; canvas.height=bitmap.height; canvas.getContext('2d').drawImage(bitmap,0,0);
     let data = canvas.toDataURL('image/png');
-    document.getElementById('screenshotResult').innerHTML = '<img src="'+data+'" style="width:100%;border-radius:14px;margin-top:8px"><p style="margin-top:8px">Screenshot neya hoye gelo - Gallery te save korar jonno long press kore save koro.</p>';
-    track.stop(); addChat('ai','Screenshot neya hoye gelo.'); speak('Screenshot niye nilam.'); addLog('Screenshot taken');
-  }catch(e){ addChat('ai','Screenshot er jonno Screen permission dao nai ba cancel korla.'); }
+    addChat('ai','Screenshot niye nilam. Ekhane dekhte paccho.');
+    // Screenshot chat e dekhano
+    let box = document.getElementById('chatBox');
+    let div = document.createElement('div'); div.className='msg ai'; div.innerHTML = '<b>' + assistantName + '</b><p><img src="' + data + '" style="width:100%;border-radius:12px;margin-top:6px"></p>'; box.appendChild(div); box.scrollTop=box.scrollHeight;
+    track.stop(); speak('Screenshot niye nilam.');
+  }catch(e){ addChat('ai','Screenshot er jonno permission dao nai. Abar bolle Allow chap dio.'); }
 }
 async function startScreenRecord(){
-  playClick(); addChat('ai','Screen Record chalu kortesi - Popup e Share chap dao.');
+  addChat('ai','Screen Record chalu kortesi - Popup asbe, Share chap dio.');
+  speak('Screen Record chalu kortesi.');
   try{
     let stream = await navigator.mediaDevices.getDisplayMedia({video:true, audio:true});
-    recordedChunks=[]; mediaRecorder = new MediaRecorder(stream, {mimeType:'video/webm'});
-    mediaRecorder.ondataavailable = e=>{ if(e.data.size>0) recordedChunks.push(e.data); };
-    mediaRecorder.onstop = ()=>{
-      let blob = new Blob(recordedChunks, {type:'video/webm'}); let url = URL.createObjectURL(blob); let v=document.getElementById('recordPreview'); v.src=url; v.style.display='block'; addChat('ai','Screen Record ses, video niche dekhte paccho.'); speak('Screen Record ses, video save hoye gelo.'); };
-    mediaRecorder.start(); document.getElementById('st-screen').textContent='Recording...'; document.getElementById('st-screen').className='ok'; addChat('ai','Screen Record chalu hoye gelo. Bondho korte chaile Bondho button e chap dao.'); speak('Screen Record chalu hoye gelo.'); addLog('Screen Record Started');
-  }catch(e){ addChat('ai','Screen Record er jonno permission dao nai.'); }
+    let rec = new MediaRecorder(stream, {mimeType:'video/webm'});
+    let chunks = [];
+    rec.ondataavailable = e=>{ if(e.data.size>0) chunks.push(e.data); };
+    rec.onstop = ()=>{
+      let blob = new Blob(chunks, {type:'video/webm'}); let url = URL.createObjectURL(blob);
+      let box = document.getElementById('chatBox');
+      let div = document.createElement('div'); div.className='msg ai'; div.innerHTML = '<b>' + assistantName + '</b><p>Record ses, video ta dekho:</p><video src="' + url + '" controls style="width:100%;border-radius:12px;margin-top:6px"></video>'; box.appendChild(div); box.scrollTop=box.scrollHeight;
+    };
+    rec.start();
+    addChat('ai','Record chalu hoye gelo. Bondho korte chaile bolo "Record bondho koro" - ami bondho kore dibo.');
+    window._currentRec = rec; window._currentStream = stream;
+  }catch(e){ addChat('ai','Record er jonno permission dao nai.'); }
 }
-function stopScreenRecord(){ if(mediaRecorder && mediaRecorder.state!=='inactive'){ mediaRecorder.stop(); mediaRecorder.stream.getTracks().forEach(t=>t.stop()); document.getElementById('st-screen').textContent='Allowed'; addChat('ai','Screen Record bondho kore dilam.'); } else { addChat('ai','Record chalu nai. Age Chalu koro.'); } }
-async function askScreenPermission(){ playClick(); try{ let s=await navigator.mediaDevices.getDisplayMedia({video:true}); document.getElementById('st-screen').textContent='Allowed'; document.getElementById('st-screen').className='ok'; addChat('ai','Screen permission peye gelam.'); s.getTracks().forEach(t=>t.stop()); }catch(e){ addChat('ai','Screen permission dao nai.'); } }
 
 // ========== INIT ==========
 window.addEventListener('load', ()=>{
-  createManifest(); createServiceWorker(); renderGallery();
-  if(window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone){ document.getElementById('installedBadge').classList.add('show'); document.getElementById('pwaStatus').textContent='Installed'; }
-  else { let dismissed=localStorage.getItem('aa_install_dismissed'); if(!dismissed || (Date.now()-parseInt(dismissed)>86400000)){ setTimeout(()=>{ if(!isInstalled) document.getElementById('installBanner').classList.add('show'); }, 2500); } }
-  let params=new URLSearchParams(location.search); if(params.get('action')==='voice'){ setTimeout(()=>toggleListen(),800); }
-  addChat('ai','Hello, ami Amar Assistant PRO. Ami shudhu tomar command e kaj kori. Age Verify Koro button e chap diye PIN dao: '+ownerPin+' (Demo PIN). Tarpor Permission tab theke Mic / Camera / Storage Allow koro. Tarpor bolo ki korte hobe.');
-  addChat('system','Security: Onno kew bolle ami kaj korbo na. Prottek kajer age ami tomar onumoti chabo. Permission: Phone er asol popup asbe, Allow korlei kaj korbe.');
-  setStatus('Ready - Verify Koro','PIN: '+ownerPin+' diye verify koro');
+  let greet = myName ? myName : 'bondhu';
+  if(myName && assistantName !== 'Assistant'){
+    addChat('ai','Hello ' + myName + ', ami ' + assistantName + '. Abar fire aslam. Bolo ki korte hobe? Ami background eo suntesi.');
+    speak('Hello ' + myName + ', ami ' + assistantName + '. Bolo ki korte hobe?');
+  } else if(myName){
+    addChat('ai','Hello ' + myName + ', ami tomar assistant. Bolo ki korte hobe? Tumi chaile amake ekta nam dite paro. Bolo "Tomar nam Jarvis" - ami oi namei dakbo.');
+    speak('Hello ' + myName + ', bolo ki korte hobe?');
+  } else {
+    addChat('ai','Hello, ami tomar personal assistant. Tumi amake 1 bar shikhailei mone rakhbo. Bolo "Amar nam Rahim" - ami tomake Rahim bole dakbo. Ar bolo "Tomar nam Jarvis" - ami Jarvis hoye jabo. Tarpor ja bolba ami tai korbo.');
+    speak('Hello, ami tomar personal assistant. Bolo amar nam ki rakhba, ar tomar nam ki.');
+  }
+  setStatus('Ami suntesi...', 'Mic e chap dao ba sudhu bolo. Background eo sunbo.');
+  // Auto listen chalu - 1 sec pore
+  setTimeout(()=>{ autoListen=true; startListen(); }, 1200);
 });
 </script>
+
+<!--
+DEFAULT ASSISTANT - SETTINGS E TOMAR APP TA ANA:
+
+HTML / PWA diye Settings e Default Assistant e asa jay na. Eta Android er niyom.
+Eta korte hole Native App e 1 ta Service lage:
+
+AndroidManifest.xml e ei tuk add koro:
+
+<service android:name=".AssistantService"
+  android:permission="android.permission.BIND_VOICE_INTERACTION">
+  <intent-filter>
+    <action android:name="android.service.voice.VoiceInteractionService" />
+  </intent-filter>
+  <meta-data android:name="android.voice_interaction" android:resource="@xml/voice_interaction_service" />
+</service>
+
+<activity android:name=".MainActivity">
+  <intent-filter>
+    <action android:name="android.intent.action.ASSIST" />
+    <category android:name="android.intent.category.DEFAULT" />
+  </intent-filter>
+</activity>
+
+Tarpor phone er:
+Settings > Apps > Default Apps > Digital Assistant App > AMAR ASSISTANT select koro.
+Ekhon theke Home Button long press korle / "Hey Google" er jaygay tomar Assistant asbe.
+
+Eita Native APK banalei hobe. HTML file diye Settings e asa jay na, kintu ei file tai WebView diye APK banalei hobe.
+-->
 </body>
 </html>
